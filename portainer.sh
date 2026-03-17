@@ -8,7 +8,7 @@ BLUE='\033[0;34m'
 export DEBIAN_FRONTEND=noninteractive
 
 ################# ATUALIZAÇÃO DOS REPOSITÓRIOS
-echo "${BLUE}- ATUALIZANDO REPOSITÓRIOS${NC}"
+echo "${BLUE}[ PROCESS ]${NC} - ATUALIZANDO REPOSITÓRIOS"
 apt -yq update > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}[ SUCESSO ]${NC} - Repositorios atualizados."
@@ -17,7 +17,7 @@ else
 fi
 
 ################# ATUALIZAÇÃO DO SISTEMA
-echo "${BLUE}[- ATUALIZANDO SISTEMA OPERACIONAL${NC}"
+echo "${BLUE}[ PROCESS ]${NC} - ATUALIZANDO SISTEMA OPERACIONAL"
 apt -yq upgrade > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}[ SUCESSO ]${NC} - Sistema atualizado."
@@ -26,7 +26,7 @@ else
 fi
 
 ################# INSTALAÇÃO DO DOCKER
-echo "${BLUE}[- INSTALANDO DOCKER SWARM${NC}"
+echo "${BLUE}[ PROCESS ]${NC} - INSTALANDO DOCKER SWARM"
 apt -yq install docker.io > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}[ SUCESSO ]${NC} - Docker Swarm instalado"
@@ -36,7 +36,7 @@ fi
 
 
 ################# CONFIGURANDO DOCKER SWARM
-echo "${BLUE}[- CONFIGURANDO DOCKER SWARM${NC}"
+echo "${BLUE}[ PROCESS ]${NC} - CONFIGURANDO DOCKER SWARM"
 docker swarm init > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}[ SUCESSO ]${NC} - Docker Swarm configurado"
@@ -45,7 +45,7 @@ else
 fi
 
 ################# INSTALANDO PORTAINER CE
-echo "${BLUE}[- INSTALANDO PORTAINER CE${NC}"
+echo "${BLUE}[ PROCESS ]${NC} - INSTALANDO PORTAINER CE"
 
 curl -L https://raw.githubusercontent.com/levimenezesthz/scripts/refs/heads/main/portainer.yaml -o portainer.yaml > /dev/null 2>&1
 if [ $? -eq 0 ]; then
@@ -62,7 +62,7 @@ else
 fi
 
 ################# INSTALANDO TRAEFIK CE
-echo "${BLUE}[- INSTALANDO TRAEFIK CE${NC}"
+echo "${BLUE}[ PROCESS ]${NC} - INSTALANDO TRAEFIK CE"
 
 curl -L https://raw.githubusercontent.com/levimenezesthz/scripts/refs/heads/main/traefik.yaml -o traefik.yaml > /dev/null 2>&1
 if [ $? -eq 0 ]; then
