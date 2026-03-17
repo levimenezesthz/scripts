@@ -38,14 +38,29 @@ fi
 ################# INSTALANDO PORTAINER CE
 echo "\e[34m[- INSTALANDO PORTAINER CE\e[0m"
 
-curl -L https://raw.githubusercontent.com/levimenezesthz/scripts/refs/heads/main/portainer.yml -o portainer.yml; then
-    echo "\e[32m[ SUCESSO ]\e[0m - Stack do portainer carregada"
+curl -L https://raw.githubusercontent.com/levimenezesthz/scripts/refs/heads/main/portainer.yaml -o portainer.yaml; then
+    echo "\e[32m[ SUCESSO ]\e[0m - Stack do portainer carregado"
 else
-    echo "\e[31m[ ERRO ]\e[0m - Stack do portainer não carregada."
+    echo "\e[31m[ ERRO ]\e[0m - Stack do portainer não carregado."
 fi
 
-docker stack deploy -c portainer.yml portainer; then
+docker stack deploy --prune --resolve-image always -c portainer.yaml portainer; then
     echo "\e[32m[ SUCESSO ]\e[0m - Portainer instalado"
 else
     echo "\e[31m[ ERRO ]\e[0m - Portainer não instalado."
 fi
+
+echo "\e[34m[- INSTALANDO TRAEFIK CE\e[0m"
+
+curl -L https://raw.githubusercontent.com/levimenezesthz/scripts/refs/heads/main/traefik.yaml -o traefik.yaml; then
+    echo "\e[32m[ SUCESSO ]\e[0m - Stack do traefik carregado"
+else
+    echo "\e[31m[ ERRO ]\e[0m - Stack do traefik não carregado."
+fi
+
+docker stack deploy --prune --resolve-image always -c traefik.yaml traefik; then
+    echo "\e[32m[ SUCESSO ]\e[0m - Traefik instalado"
+else
+    echo "\e[31m[ ERRO ]\e[0m - Traefik não instalado."
+fi
+
