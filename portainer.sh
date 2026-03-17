@@ -1,75 +1,81 @@
 #!/bin/bash
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color (reset)
+
 export DEBIAN_FRONTEND=noninteractive
 
 ################# ATUALIZAÇÃO DOS REPOSITÓRIOS
-echo "\e[34m[- ATUALIZANDO REPOSITÓRIOS\e[0m"
+echo "${BLUE}- ATUALIZANDO REPOSITÓRIOS${NC}"
 apt -yq update
 if [ $? -eq 0 ]; then
-    echo "\e[32m[ SUCESSO ]\e[0m - Repositorios atualizados."
+    echo "${GREEN}[ SUCESSO ]${NC} - Repositorios atualizados."
 else
-    echo "\e[31m[ ERRO ]\e[0m - Um ou mais repositorio não atualizado."
+    echo "${RED}[ ERRO ]${NC} - Um ou mais repositorio não atualizado."
 fi
 
 ################# ATUALIZAÇÃO DO SISTEMA
-echo "\e[34m[- ATUALIZANDO SISTEMA OPERACIONAL\e[0m"
+echo "${BLUE}[- ATUALIZANDO SISTEMA OPERACIONAL${NC}"
 apt -yq upgrade
 if [ $? -eq 0 ]; then
-    echo "\e[32m[ SUCESSO ]\e[0m - Sistema atualizado."
+    echo "${GREEN}[ SUCESSO ]${NC} - Sistema atualizado."
 else
-    echo "\e[31m[ ERRO ]\e[0m - Sistema não atualizado."
+    echo "${RED}[ ERRO ]${NC} - Sistema não atualizado."
 fi
 
 ################# INSTALAÇÃO DO DOCKER
-echo "\e[34m[- INSTALANDO DOCKER SWARM\e[0m"
+echo "${BLUE}[- INSTALANDO DOCKER SWARM${NC}"
 apt -yq install docker.io
 if [ $? -eq 0 ]; then
-    echo "\e[32m[ SUCESSO ]\e[0m - Docker Swarm instalado"
+    echo "${GREEN}[ SUCESSO ]${NC} - Docker Swarm instalado"
 else
-    echo "\e[31m[ ERRO ]\e[0m - Docker Swarm não instalado."
+    echo "${RED}[ ERRO ]${NC} - Docker Swarm não instalado."
 fi
 
 
 ################# CONFIGURANDO DOCKER SWARM
-echo "\e[34m[- CONFIGURANDO DOCKER SWARM\e[0m"
+echo "${BLUE}[- CONFIGURANDO DOCKER SWARM${NC}"
 docker swarm init
 if [ $? -eq 0 ]; then
-    echo "\e[32m[ SUCESSO ]\e[0m - Docker Swarm configurado"
+    echo "${GREEN}[ SUCESSO ]${NC} - Docker Swarm configurado"
 else
-    echo "\e[31m[ ERRO ]\e[0m - Docker Swarm não configurado."
+    echo "${RED}[ ERRO ]${NC} - Docker Swarm não configurado."
 fi
 
 ################# INSTALANDO PORTAINER CE
-echo "\e[34m[- INSTALANDO PORTAINER CE\e[0m"
+echo "${BLUE}[- INSTALANDO PORTAINER CE${NC}"
 
 curl -L https://raw.githubusercontent.com/levimenezesthz/scripts/refs/heads/main/portainer.yaml -o portainer.yaml
 if [ $? -eq 0 ]; then
-    echo "\e[32m[ SUCESSO ]\e[0m - Stack do portainer carregado"
+    echo "${GREEN}[ SUCESSO ]${NC} - Stack do portainer carregado"
 else
-    echo "\e[31m[ ERRO ]\e[0m - Stack do portainer não carregado."
+    echo "${RED}[ ERRO ]${NC} - Stack do portainer não carregado."
 fi
 
 docker stack deploy --prune --resolve-image always -c portainer.yaml portainer
 if [ $? -eq 0 ]; then
-    echo "\e[32m[ SUCESSO ]\e[0m - Portainer instalado"
+    echo "${GREEN}[ SUCESSO ]${NC} - Portainer instalado"
 else
-    echo "\e[31m[ ERRO ]\e[0m - Portainer não instalado."
+    echo "${RED}[ ERRO ]${NC} - Portainer não instalado."
 fi
 
 ################# INSTALANDO TRAEFIK CE
-echo "\e[34m[- INSTALANDO TRAEFIK CE\e[0m"
+echo "${BLUE}[- INSTALANDO TRAEFIK CE${NC}"
 
 curl -L https://raw.githubusercontent.com/levimenezesthz/scripts/refs/heads/main/traefik.yaml -o traefik.yaml
 if [ $? -eq 0 ]; then
-    echo "\e[32m[ SUCESSO ]\e[0m - Stack do traefik carregado"
+    echo "${GREEN}[ SUCESSO ]${NC} - Stack do traefik carregado"
 else
-    echo "\e[31m[ ERRO ]\e[0m - Stack do traefik não carregado."
+    echo "${RED}[ ERRO ]${NC} - Stack do traefik não carregado."
 fi
 
 docker stack deploy --prune --resolve-image always -c traefik.yaml traefik
 if [ $? -eq 0 ]; then
-    echo "\e[32m[ SUCESSO ]\e[0m - Traefik instalado"
+    echo "${GREEN}[ SUCESSO ]${NC} - Traefik instalado"
 else
-    echo "\e[31m[ ERRO ]\e[0m - Traefik não instalado."
+    echo "${RED}[ ERRO ]${NC} - Traefik não instalado."
 fi
 
