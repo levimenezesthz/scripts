@@ -10,7 +10,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 ################# ATUALIZAÇÃO DOS REPOSITÓRIOS
 echo "${BLUE}- ATUALIZANDO REPOSITÓRIOS${NC}"
-apt -yq update
+apt -yq update > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo "${GREEN}[ SUCESSO ]${NC} - Repositorios atualizados."
 else
@@ -19,7 +19,7 @@ fi
 
 ################# ATUALIZAÇÃO DO SISTEMA
 echo "${BLUE}[- ATUALIZANDO SISTEMA OPERACIONAL${NC}"
-apt -yq upgrade
+apt -yq upgrade > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo "${GREEN}[ SUCESSO ]${NC} - Sistema atualizado."
 else
@@ -28,7 +28,7 @@ fi
 
 ################# INSTALAÇÃO DO DOCKER
 echo "${BLUE}[- INSTALANDO DOCKER SWARM${NC}"
-apt -yq install docker.io
+apt -yq install docker.io > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo "${GREEN}[ SUCESSO ]${NC} - Docker Swarm instalado"
 else
@@ -38,7 +38,7 @@ fi
 
 ################# CONFIGURANDO DOCKER SWARM
 echo "${BLUE}[- CONFIGURANDO DOCKER SWARM${NC}"
-docker swarm init
+docker swarm init > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo "${GREEN}[ SUCESSO ]${NC} - Docker Swarm configurado"
 else
@@ -48,14 +48,14 @@ fi
 ################# INSTALANDO PORTAINER CE
 echo "${BLUE}[- INSTALANDO PORTAINER CE${NC}"
 
-curl -L https://raw.githubusercontent.com/levimenezesthz/scripts/refs/heads/main/portainer.yaml -o portainer.yaml
+curl -L https://raw.githubusercontent.com/levimenezesthz/scripts/refs/heads/main/portainer.yaml -o portainer.yaml > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo "${GREEN}[ SUCESSO ]${NC} - Stack do portainer carregado"
 else
     echo "${RED}[ ERRO ]${NC} - Stack do portainer não carregado."
 fi
 
-docker stack deploy --prune --resolve-image always -c portainer.yaml portainer
+docker stack deploy --prune --resolve-image always -c portainer.yaml portainer > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo "${GREEN}[ SUCESSO ]${NC} - Portainer instalado"
 else
@@ -65,14 +65,14 @@ fi
 ################# INSTALANDO TRAEFIK CE
 echo "${BLUE}[- INSTALANDO TRAEFIK CE${NC}"
 
-curl -L https://raw.githubusercontent.com/levimenezesthz/scripts/refs/heads/main/traefik.yaml -o traefik.yaml
+curl -L https://raw.githubusercontent.com/levimenezesthz/scripts/refs/heads/main/traefik.yaml -o traefik.yaml > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo "${GREEN}[ SUCESSO ]${NC} - Stack do traefik carregado"
 else
     echo "${RED}[ ERRO ]${NC} - Stack do traefik não carregado."
 fi
 
-docker stack deploy --prune --resolve-image always -c traefik.yaml traefik
+docker stack deploy --prune --resolve-image always -c traefik.yaml traefik > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo "${GREEN}[ SUCESSO ]${NC} - Traefik instalado"
 else
