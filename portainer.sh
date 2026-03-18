@@ -67,6 +67,9 @@ else
     echo -e "${RED}[ ERRO___ ]${NC} - Docker Swarm NÃO configurado."
 fi
 
+docker network create --driver bridge --attachable internal 
+docker network create --driver overlay --attachable external
+
 ####################################################################
 # INSTALAÇÃO DO PORTAINER ########################################## 
 ####################################################################
@@ -99,6 +102,8 @@ if [ $? -eq 0 ]; then
 else
     echo -e "${RED}[ ERRO___ ]${NC} - Stack do traefik NÃO carregado."
 fi
+
+docker network create --driver overlay reverse_proxy
 
 docker stack deploy --prune --resolve-image always -c traefik.yaml traefik > /dev/null 2>&1
 if [ $? -eq 0 ]; then
