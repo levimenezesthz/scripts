@@ -1,6 +1,6 @@
 services:
   traefik:
-    image: traefik:v3
+    image: traefik:2
     restart: always
     command:
       - "--api.dashboard=true"
@@ -29,8 +29,8 @@ services:
       - "443:443"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "certificates:/etc/traefik/traefikresolver/"
-      - "config:/etc/traefik/"
+      - "traefik_certificates:/etc/traefik/traefikresolver/"
+      - "traefik_config:/etc/traefik/"
       #- "./traefik_dynamic.yml:/etc/traefik/traefik_dynamic.yml" # Monta o arquivo de configuração dinâmica
     networks:
       - external
@@ -52,9 +52,9 @@ networks:
     name: external
 
 volumes:
-  certificates:
+  traefik_certificates:
     external: true
-    name: certificates
-  config:
+    name: traefik_certificates
+  traefik_config:
     external: true
-    name: config
+    name: traefik_config
