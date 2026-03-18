@@ -7,7 +7,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
     networks:
-      - network
+      - portainer
     deploy:
       mode: global
       placement:
@@ -23,7 +23,7 @@ services:
     volumes:
       - data:/data
     networks:
-      - network
+      - portainer
     deploy:
       mode: replicated
       replicas: 1
@@ -31,7 +31,7 @@ services:
         constraints: [node.role == manager]
 
 networks:
-  network:
+  portainer:
     driver: overlay
     attachable: true
 
