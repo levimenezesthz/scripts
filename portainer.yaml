@@ -21,7 +21,7 @@ services:
       - "9000:9000"
       - "8000:8000"
     volumes:
-      - data:/data
+      - portainer_data:/data
     networks:
       - external
     deploy:
@@ -45,5 +45,5 @@ networks:
     name: external
 
 volumes:
-  data:
+  portainer_data:
     external: true
