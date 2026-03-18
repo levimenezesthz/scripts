@@ -2,7 +2,6 @@ services:
   traefik:
     image: traefik:v3
     restart: always
-    container_name: traefik
     command:
       - "--api.dashboard=true"
       - "--providers.docker.swarmMode=true"
@@ -34,15 +33,15 @@ services:
       - "config:/etc/traefik/"
       #- "./traefik_dynamic.yml:/etc/traefik/traefik_dynamic.yml" # Monta o arquivo de configuração dinâmica
     networks:
-      - traefik
+      - external
     labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.redirect.redirectscheme.permanent=true"
       - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.exceler.tec.br`)"
-      - "traefik.http.routers.traefik-dashboard.service=api@internal"
       - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
       - "traefik.http.routers.traefik-dashboard.tls.certresolver=traefikresolver"
+      - "traefik.http.routers.traefik-dashboard.service=traefik-dashboard"
       - "traefik.http.routers.traefik-dashboard.middlewares=redirect@docker"
       - "traefik.http.routers.traefik-dashboard.priority=1"
       # - "traefik.http.routers.traefik-dashboard.middlewares=dashboard-auth@file" # Descomente para ativar autenticação
@@ -56,6 +55,5 @@ volumes:
     name: config
 
 networks:
-  traefik:
+  external:
     external: true
-    name: traefik
