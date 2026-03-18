@@ -37,6 +37,8 @@ fi
 
 echo -e "${YELLOW}[ PROCESS ]${NC} - INSTALANDO DOCKER SWARM"
 
+rm -f /etc/apt/sources.list.d/docker.list > /dev/null 2>&1
+rm -f /etc/apt/keyrings/docker.gpg > /dev/null 2>&1
 mkdir -p /etc/apt/keyrings > /dev/null 2>&1 && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}[ SUCESS_ ]${NC} - Chave do repositorio Docker configurada."
