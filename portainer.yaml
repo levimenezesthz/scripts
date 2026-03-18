@@ -29,6 +29,14 @@ services:
       replicas: 1
       placement:
         constraints: [node.role == manager]
+    labels:
+        - traefik.enable=true
+        - traefik.http.routers.portainer.rule=Host(`portainer.exceler.tec.br`)
+        - traefik.http.routers.portainer.entrypoints=websecure
+        - traefik.http.routers.portainer.tls.certresolver=traefikresolver
+        - traefik.http.routers.portainer.service=portainer
+        - traefik.http.services.portainer.loadbalancer.server.port=9443
+        - traefik.http.services.portainer.loadbalancer.passHostHeader=true
 
 networks:
   network:
