@@ -37,7 +37,7 @@ fi
 
 echo -e "${YELLOW}[ PROCESS ]${NC} - INSTALANDO DOCKER SWARM"
 
-sudo mkdir -p /etc/apt/keyrings > /dev/null 2>&1 && curl -fsSL https://download.docker.com | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg > /dev/null 2>&1
+mkdir -p /etc/apt/keyrings > /dev/null 2>&1 && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}[ SUCESS_ ]${NC} - Chave do repositorio Docker configurada."
 else
@@ -47,7 +47,7 @@ fi
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
   https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null 2>&1 && apt update > /dev/null 2>&1
+  $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null 2>&1 && apt update > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}[ SUCESS_ ]${NC} - Repositorio oficial do Docker configurado."
 else
