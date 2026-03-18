@@ -69,7 +69,7 @@ echo -e "${BLUE}[ PROCESS ]${NC} - INSTALANDO PORTAINER CE"
 
 curl -L https://raw.githubusercontent.com/levimenezesthz/scripts/refs/heads/main/portainer.yaml -o portainer.yaml > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    echo -e "${GREEN}[ SUCESSO ]${NC} - Stack do portainer carregado"
+    echo -e "${GREEN}[ SUCESSO ]${NC} - Stack do portainer carregado."
 else
     echo -e "${RED}[ _ERRO_ ]${NC} - Stack do portainer NÃO carregado."
 fi
