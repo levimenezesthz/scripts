@@ -15,11 +15,11 @@ services:
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
       - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.letsencrypt.acme.httpchallenge=true"
-      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
-      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
-      - "--certificatesresolvers.letsencrypt.acme.email=levimenezes.thz@gmail.com" # Substitua pelo seu email
-      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.traefikresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.traefikresolver.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.traefikresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.traefikresolver.acme.email=levimenezes.thz@gmail.com" # Substitua pelo seu email
+      - "--certificatesresolvers.traefikresolver.acme.storage=/traefikresolver/acme.json"
       - "--log.level=WARN"
       - "--log.format=common"
       - "--log.filePath=/etc/traefik/log/traefik/traefik.log"
@@ -29,7 +29,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - "certificates:/letsencrypt"
+      - "certificates:/traefikresolver"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "config:/etc/traefik/"
       #- "./traefik_dynamic.yml:/etc/traefik/traefik_dynamic.yml" # Monta o arquivo de configuração dinâmica
@@ -42,7 +42,7 @@ services:
       - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.exceler.tec.br`)"
       - "traefik.http.routers.traefik-dashboard.service=api@internal"
       - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
-      - "traefik.http.routers.traefik-dashboard.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.traefik-dashboard.tls.certresolver=traefikresolver"
       - "traefik.http.routers.traefik-dashboard.middlewares=redirect@docker"
       - "traefik.http.routers.traefik-dashboard.priority=1"
       # - "traefik.http.routers.traefik-dashboard.middlewares=dashboard-auth@file" # Descomente para ativar autenticação
