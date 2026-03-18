@@ -103,8 +103,6 @@ else
     echo -e "${RED}[ ERRO___ ]${NC} - Stack do traefik NÃO carregado."
 fi
 
-docker network create --driver overlay reverse_proxy
-
 docker stack deploy --prune --resolve-image always -c traefik.yaml traefik > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}[ SUCESS_ ]${NC} - Traefik instalada."
