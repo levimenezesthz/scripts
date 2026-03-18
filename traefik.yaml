@@ -46,6 +46,11 @@ services:
       - "traefik.http.routers.traefik-dashboard.priority=1"
       # - "traefik.http.routers.traefik-dashboard.middlewares=dashboard-auth@file" # Descomente para ativar autenticação
 
+networks:
+  external:
+    external: true
+    name: external
+
 volumes:
   certificates:
     external: true
@@ -53,7 +58,3 @@ volumes:
   config:
     external: true
     name: config
-
-networks:
-  external:
-    external: true
